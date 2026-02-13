@@ -15,7 +15,7 @@ hosts/<hostname>/
 
 ```nix
 {
-  target = "computeplusstorage"; # or compute/storage
+  target = "computeplusstorage"; # or compute/storage/spine
   system = "x86_64-linux";       # optional
 
   # Disk IDs for disko (used by install.sh disko)

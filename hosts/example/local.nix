@@ -1,5 +1,5 @@
 {
-  target = "computeplusstorage";
+  target = "computeplusstorage"; # or compute/storage/spine
   system = "x86_64-linux";
 
   # Short-form keys (expanded to bowenos.* by the inventory flake)
