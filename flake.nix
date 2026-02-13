@@ -51,7 +51,19 @@
           target = host.target;
           hostModule = host.module or (_: { });
           hw = hostPath + "/hardware-configuration.nix";
-          usersFile = hostPath + "/users.nix";
+          overridesFile = hostPath + "/overrides.nix";
+          usersDir = hostPath + "/users";
+          userFiles =
+            if builtins.pathExists usersDir then
+              let
+                entries = builtins.readDir usersDir;
+              in
+              builtins.filter
+                (n: entries.${n} == "regular" && lib.hasSuffix ".nix" n)
+                (builtins.attrNames entries)
+            else
+              [ ];
+          userModules = map (file: usersDir + "/${file}") userFiles;
           identityDefaults = { ... }: {
             bowenos.identity.hostName = lib.mkDefault name;
             bowenos.identity.target = lib.mkDefault target;
@@ -87,7 +99,8 @@
               impermanence.nixosModules.impermanence
             ]
             ++ (if builtins.pathExists hw then [ hw ] else [ ])
-            ++ (if builtins.pathExists usersFile then [ usersFile ] else [ ])
+            ++ (if builtins.pathExists overridesFile then [ overridesFile ] else [ ])
+            ++ userModules
             ++ [
               identityDefaults
               shortModule

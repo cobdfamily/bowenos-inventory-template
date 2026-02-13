@@ -6,6 +6,9 @@ Each host lives in its own directory:
 hosts/<hostname>/
   local.nix
   hardware-configuration.nix
+  overrides.nix         # optional
+  users/                # optional
+    *.nix
 ```
 
 `local.nix` must export:
@@ -41,6 +44,10 @@ hosts/<hostname>/
 
 `local.nix` is the host-specific config (tracked), and
 `hardware-configuration.nix` is the standard output of `nixos-generate-config`.
+
+Optional host modules:
+- `overrides.nix`: full NixOS module for arbitrary host overrides (for example `services.bcrail.enable = true;`).
+- `users/*.nix`: each file is imported as a NixOS module, letting you split user definitions per file.
 
 Inventory outputs:
 - `hostInfo.<host>.bootaById`, `hostInfo.<host>.bootbById`, `hostInfo.<host>.diskMode`, `hostInfo.<host>.bootMode`
