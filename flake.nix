@@ -9,6 +9,7 @@
     impermanence.inputs.nixpkgs.follows = "nixpkgs";
     bcrail.url = "github:cobdfamily/bcrail";
     bowenos.url = "github:cobdfamily/bowenos";
+    bowenos-tools.url = "github:cobdfamily/bowenos-tools";
   };
 
   outputs = inputs@{ self, nixpkgs, disko, impermanence, bowenos, ... }:
