@@ -36,7 +36,10 @@
                 system = host.system or defaultSystem;
                 bootaById = host.bootaById or "";
                 bootbById = host.bootbById or "";
-                diskMode = host.diskMode or "mirror";
+                diskMode =
+                  if builtins.hasAttr "diskMode" host then host.diskMode
+                  else if host.target == "spine" then "single"
+                  else "mirror";
                 bootMode = host.bootMode or "uefi";
               };
             })
@@ -84,7 +87,9 @@
             bowenos.users.consolePassword = lib.mkDefault (host.consolePassword or "");
 
             bowenos.storage.isVm = lib.mkDefault (host.isVm or false);
-            bowenos.storage.diskMode = lib.mkDefault (host.diskMode or "mirror");
+            bowenos.storage.diskMode =
+              if builtins.hasAttr "diskMode" host then lib.mkForce host.diskMode
+              else lib.mkDefault (if target == "spine" then "single" else "mirror");
             bowenos.storage.bootaById = lib.mkForce (host.bootaById or "");
             bowenos.storage.bootbById = lib.mkForce (host.bootbById or "");
             bowenos.storage.bootMode = lib.mkDefault (host.bootMode or "uefi");
