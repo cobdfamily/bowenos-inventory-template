@@ -15,7 +15,7 @@
   mutableUsers = false;
   consolePassword = "";
 
-  diskMode = "mirror";
+  diskMode = "mirror"; # mirror/single/persistant
   bootMode = "uefi";
   isVm = false;
   bootbDiskPath = "/dev/disk/by-id/EXAMPLE_DISK_B";
