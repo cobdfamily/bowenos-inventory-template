@@ -1,5 +1,8 @@
 # Hosts Inventory
 
+BowenOS inventory template -- starter layout for managing a
+fleet of NixOS-based BowenOS hosts.
+
 Each host lives in its own directory:
 
 ```
